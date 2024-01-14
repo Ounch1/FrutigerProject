@@ -5,8 +5,7 @@ public class ViewSwitcher : MonoBehaviour
 {
     private static ViewSwitcher _instance;
 
-    [SerializeField]
-    private bool _isTPC;
+    [SerializeField] private bool _isTPC;
 
     public bool isTPC
     {   

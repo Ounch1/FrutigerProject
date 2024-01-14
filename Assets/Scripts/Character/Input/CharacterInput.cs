@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CharacterInput : MonoBehaviour, IMoverInput
+public class CharacterInput : MonoBehaviour, I_MovementInput
 {
     public Action onSetInputs;
 
