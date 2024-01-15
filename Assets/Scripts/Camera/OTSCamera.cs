@@ -1,9 +1,12 @@
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class OTSCamera : TargetCamera
 {
     [Header("Follow")]
     public float speed = 200f;
+    public bool clampWithWalls = true;
+    public LayerMask obstacles;
 
     [Header("Controls")]
     public float sensitivityX = 500f;
@@ -18,6 +21,7 @@ public class OTSCamera : TargetCamera
 
     private Vector2 _sphereRadians = new Vector2(0f, 3f);
     private float _zoom;
+    private Vector3 _targetPos;
 
     private Vector3 localPos => getLocalPos();
 
@@ -34,7 +38,7 @@ public class OTSCamera : TargetCamera
 
     private void UpdatePosition(float deltaTime)
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) || ServiceLocator.GetService<PlayerInput>().isShift)
         {
             _sphereRadians += new Vector2(Input.GetAxis("Mouse X") * -sensitivityX, Input.GetAxis("Mouse Y") * -sensitivityY) * deltaTime * Mathf.Deg2Rad; // Calculate camera movement
         }
@@ -45,17 +49,34 @@ public class OTSCamera : TargetCamera
 
         if (Mathf.Approximately(_zoom, minDistance / maxDistance))
         {
-            ViewSwitcher.instance.isTPC = false;
+            ServiceLocator.GetService<ViewSwitcher>().isOTS = false;
         }
-            
-        transform.position = Vector3.Lerp(transform.position, target.position + localPos, speed * deltaTime);
+
+        _targetPos = target.position + localPos;
         transform.LookAt(target.TransformPoint(offset));
+
+        if (clampWithWalls)
+        {
+            ClampWithWalls();
+        }
+
+        transform.position = Vector3.Lerp(transform.position, _targetPos, speed * deltaTime);
     }
 
     private void ClampValues()
     {
         _sphereRadians.y = Mathf.Clamp(_sphereRadians.y, minAngle * Mathf.Deg2Rad, maxAngle * Mathf.Deg2Rad);
         _zoom = Mathf.Clamp(_zoom, minDistance / maxDistance, 1);
+    }
+
+    private void ClampWithWalls()
+    {
+        var orig = target.TransformPoint(offset);
+        if (Physics.SphereCast(orig, 0.3f, _targetPos - orig, out var hit, _zoom * maxDistance, obstacles))
+        {
+            _targetPos = hit.point;
+            _targetPos += transform.forward * 0.5f;
+        }
     }
 
     private Vector3 getLocalPos()

@@ -5,6 +5,7 @@ public abstract class CharacterMovement : MonoBehaviour
     [Header("Metrics")]
     public float moveSpeed = 10f;
     public float jumpHeight = 3f;
+
     [Header("Ground")]
     public Transform groundCheck;
     public LayerMask groundMask;
@@ -33,7 +34,7 @@ public abstract class CharacterMovement : MonoBehaviour
     protected virtual void UpdateInputs()
     {
         _input.GetMovementAxis(out var vertical, out var horizontal, out _isShift);
-        _inputAxis = new Vector3(horizontal, 0f, vertical).normalized;
+        _inputAxis = Vector3.ClampMagnitude(new Vector3(horizontal, 0f, vertical), 1f);
     }
 
     protected virtual void UpdateMovement(float deltaTime)
@@ -67,7 +68,7 @@ public abstract class CharacterMovement : MonoBehaviour
 
         void applyMovement()
         {
-            if (!Mathf.Approximately(_inputAxis.sqrMagnitude, Mathf.Epsilon))
+            if (!Mathf.Approximately(_inputAxis.sqrMagnitude, Mathf.Epsilon) || _isShift)
             {
                 Move(deltaTime);
             } 

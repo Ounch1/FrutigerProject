@@ -5,6 +5,7 @@ public class FPVCamera : TargetCamera
     [Header("Controls")]
     public float sensitivityY = 200f;
     public float sensitivityX = 200f;
+
     [Header("Bounds")]
     public float minAngle = -60f;
     public float maxAngle = 60f;
@@ -16,13 +17,14 @@ public class FPVCamera : TargetCamera
         UpdatePosition(Time.deltaTime);
         if (Input.GetAxis("Mouse ScrollWheel") < -Mathf.Epsilon)
         {
-            ViewSwitcher.instance.isTPC = true;
+            ServiceLocator.GetService<ViewSwitcher>().isOTS = true;
         }       
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
+        target.eulerAngles = Vector3.up * transform.eulerAngles.y;
         _sphereDegrees.x = target.eulerAngles.y;
     }
 

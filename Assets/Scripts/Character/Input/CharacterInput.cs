@@ -4,20 +4,14 @@ using UnityEngine;
 public class CharacterInput : MonoBehaviour, I_MovementInput
 {
     public Action onSetInputs;
-
-    private bool _isShift;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            _isShift = !_isShift;
-    }
+    public bool isShift;
 
     public void GetMovementAxis(out float vertical, out float horizontal, out bool isShift)
     {
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
-        isShift = _isShift;
+        var inputService = ServiceLocator.GetService<PlayerInput>();
+        vertical = inputService.vertical;
+        horizontal = inputService.horizontal;
+        isShift = inputService.isShift;
     }
 
     public void SubscribeOnInput(Action action)

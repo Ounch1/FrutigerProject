@@ -11,22 +11,22 @@ public class OTSMovement : CharacterMovement
     protected override void Move(float deltaTime)
     {
         Vector3 moveDirection;
-        float targetAngle;
+        float angle;
 
         if (!_isShift)
         {
-            targetAngle = Mathf.Atan2(_inputAxis.x, _inputAxis.z) * Mathf.Rad2Deg + spectator.eulerAngles.y;
+            var targetAngle = Mathf.Atan2(_inputAxis.x, _inputAxis.z) * Mathf.Rad2Deg + spectator.eulerAngles.y;
             moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _smoothTurnVelocity, _turnSmoothTime);
         }
         else
         {
-            targetAngle = spectator.eulerAngles.y;
             moveDirection = transform.TransformDirection(_inputAxis);
+            angle = spectator.eulerAngles.y;
         }
 
-        var angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _smoothTurnVelocity, _turnSmoothTime);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
         
-        _controller.Move(moveDirection.normalized * moveSpeed * deltaTime);
+        _controller.Move(moveDirection.normalized * _inputAxis.magnitude * moveSpeed * deltaTime);
     }
 }
