@@ -8,6 +8,12 @@ public class OTSMovement : CharacterMovement
     private float _turnSmoothTime = 0.1f;
     private float _smoothTurnVelocity;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        // No need to get a separate Rigidbody, it's already in the base class.
+    }
+
     protected override void Move(float deltaTime)
     {
         Vector3 moveDirection;
@@ -26,7 +32,10 @@ public class OTSMovement : CharacterMovement
         }
 
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
-        
-        _controller.Move(moveDirection.normalized * _inputAxis.magnitude * moveSpeed * deltaTime);
+
+        // Apply movement using Rigidbody
+        Vector3 velocity = moveDirection.normalized * _inputAxis.magnitude * moveSpeed;
+        velocity.y = rb.velocity.y; // Preserve vertical velocity for jumping or falling
+        rb.velocity = velocity;
     }
 }

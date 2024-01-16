@@ -12,16 +12,17 @@ public abstract class CharacterMovement : MonoBehaviour
 
     public bool isGrounded => CheckGround();
 
-    protected CharacterController _controller;
+    protected Rigidbody rb;  // Reference to the Rigidbody component
     protected I_MovementInput _input;
 
     protected Vector3 _inputAxis;
     protected bool _isShift;
-    private Vector3 _horizontalVelocity;
 
     protected virtual void Awake()
     {
-        _controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // Ensure the Rigidbody doesn't rotate due to physics.
+
         _input = GetComponent<CharacterInput>();
     }
 
@@ -46,16 +47,15 @@ public abstract class CharacterMovement : MonoBehaviour
 
         void applyGravity()
         {
-            _horizontalVelocity += Physics.gravity * deltaTime;
-            _controller.Move(_horizontalVelocity * deltaTime);
+            rb.AddForce(Physics.gravity * rb.mass);
         }
 
         void applyFall()
         {
-            if (isGrounded && _horizontalVelocity.y < 0)
+            if (isGrounded && rb.velocity.y < 0)
             {
-                _horizontalVelocity.y = -2f;
-            }              
+                rb.velocity = new Vector3(rb.velocity.x, -2f, rb.velocity.z);
+            }
         }
 
         void applyJump()
@@ -63,7 +63,7 @@ public abstract class CharacterMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 Jump();
-            }           
+            }
         }
 
         void applyMovement()
@@ -71,19 +71,19 @@ public abstract class CharacterMovement : MonoBehaviour
             if (!Mathf.Approximately(_inputAxis.sqrMagnitude, Mathf.Epsilon) || _isShift)
             {
                 Move(deltaTime);
-            } 
+            }
         }
     }
 
+    protected abstract void Move(float deltaTime);
+
     protected virtual void Jump()
     {
-        _horizontalVelocity.y = Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
+        rb.velocity = new Vector3(rb.velocity.x, Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), rb.velocity.z);
     }
 
     private bool CheckGround()
     {
         return Physics.CheckSphere(groundCheck.position, 0.4f, groundMask);
     }
-
-    protected abstract void Move(float deltaTime);
 }
