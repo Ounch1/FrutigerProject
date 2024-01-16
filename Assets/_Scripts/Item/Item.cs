@@ -4,16 +4,23 @@ using UnityEngine;
 /// </summary>
 public abstract class Item : MonoBehaviour
 {
-    public string itemName;
+    public ItemData itemData;
 
+    protected string itemName;
+    public string GetItemName() => itemName; 
+
+    private void Start()
+    {
+        itemName = itemData.name;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out Inventory inventory))
         {
             // Destroy the item object if it is successfully added to the inventory.
-            if (inventory.TryAddItem(this))
+            if (inventory.TryAddItem(itemData))
             {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
     }

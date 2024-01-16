@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19089dcc3acfb040b028484c11e84f8, type: 3}
+  m_Name: SampleItemData
+  m_EditorClassIdentifier: 
+  itemName: Sample
+  itemPrefab: {fileID: 5542203548909514006, guid: 00ba7c4dcdd516d4d945f1a5a27f1979, type: 3}
+  description: A sample item for inventory testing.
