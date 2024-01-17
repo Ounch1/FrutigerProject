@@ -22,17 +22,18 @@ public class Inventory : MonoBehaviour
         }
     }
     /// <summary>
-    /// Return true and add the item if there is an empty slot, else return false.
+    /// Return true and add the item if there is an empty slot, else return false, begin at index 1 and end at index 0.
     /// </summary>
     /// <param name="item">The item to be added to the inventory.</param>
     /// <returns>True if the item was added successfully, false if no empty slots are available.</returns>
     public bool TryAddItem(ItemData itemData)
     {
-        for (int i = 0; i < itemArray.Length; i++)
+        for (int i = 1; i < itemArray.Length + 1; i++)
         {
-            if (itemArray[i] == null)
+            int index = i % itemArray.Length; // Use modulo to go back to 0 when i is equal to itemArray.Length
+            if (itemArray[index] == null)
             {
-                itemArray[i] = itemData;
+                itemArray[index] = itemData;
                 return true;
             }
         }
