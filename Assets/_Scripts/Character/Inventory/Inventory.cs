@@ -6,7 +6,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public ItemData[] itemArray = new ItemData[10];
-    [SerializeField] public int itemIndex;
+    public int itemIndex = 1;
     private void Update()
     {
         for (int i = 0; i <= 9; i++)
@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
                 itemIndex = i;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Delete))
+        if (Input.GetKeyDown(KeyCode.Backspace))
         {
             DropItem(itemIndex);
         }

@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
+  - {fileID: 2100000, guid: b0b4de3bd6e976e4f8b3adc6e72377ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -204,10 +204,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1909067926030156742}
+  - component: {fileID: 1624653575}
   - component: {fileID: 1909067926030156740}
   - component: {fileID: 1909067926030156737}
   - component: {fileID: 1909067926030156738}
-  - component: {fileID: 1624653575}
   - component: {fileID: 1624653577}
   m_Layer: 0
   m_Name: Player
@@ -234,6 +234,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1624653575
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909067926030156743}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0.1
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &1909067926030156740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267bffea49593a149ad6284678148c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpHeight: 5
+  moveSpeed: 10
+  jumpHeight: 30
   groundCheck: {fileID: 8544012336904628256}
   groundMask:
     serializedVersion: 2
@@ -278,28 +294,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861f9673b8d562f43a9b813fc0474edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpHeight: 5
+  moveSpeed: 10
+  jumpHeight: 30
   groundCheck: {fileID: 8544012336904628256}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
---- !u!54 &1624653575
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909067926030156743}
-  serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 0.1
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1624653577
 MonoBehaviour:
   m_ObjectHideFlags: 0
