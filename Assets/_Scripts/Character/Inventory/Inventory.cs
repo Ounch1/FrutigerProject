@@ -6,19 +6,22 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public ItemData[] itemArray = new ItemData[10];
-    public int itemIndex = 1;
+    private int selectItemIndex = -1;
+    public int GetSelectedItemIndex() => selectItemIndex;
     private void Update()
     {
         for (int i = 0; i <= 9; i++)
         {
             if (Input.GetKeyDown(i.ToString()))
             {
-                itemIndex = i;
+                // Use ternary operator to toggle the selection/deselection of the item.
+                selectItemIndex = (selectItemIndex == i) ? -1 : i;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Backspace))
+
+        if (Input.GetKeyDown(KeyCode.Backspace) && selectItemIndex != -1)
         {
-            DropItem(itemIndex);
+            DropItem(selectItemIndex);
         }
     }
     /// <summary>
