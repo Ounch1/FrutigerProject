@@ -249,7 +249,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1909067926030156740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,7 +323,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  itemIndex: 1
+  onAction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8544012336904628257
 GameObject:
   m_ObjectHideFlags: 0

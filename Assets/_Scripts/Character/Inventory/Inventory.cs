@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 /// <summary>
 /// The Inventory class manages a simple inventory system with a fixed size.
 /// </summary>
@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour
     public ItemData[] itemArray = new ItemData[10];
     private int selectItemIndex = -1;
     public int GetSelectedItemIndex() => selectItemIndex;
+    public UnityEvent<int> onAction;
+    
     private void Update()
     {
         for (int i = 0; i <= 9; i++)
@@ -16,12 +18,14 @@ public class Inventory : MonoBehaviour
             {
                 // Use ternary operator to toggle the selection/deselection of the item.
                 selectItemIndex = (selectItemIndex == i) ? -1 : i;
+                onAction.Invoke(selectItemIndex);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace) && selectItemIndex != -1)
         {
             DropItem(selectItemIndex);
+            onAction.Invoke(selectItemIndex);
         }
     }
     /// <summary>
@@ -35,8 +39,9 @@ public class Inventory : MonoBehaviour
         {
             int index = i % itemArray.Length; // Use modulo to go back to 0 when i is equal to itemArray.Length
             if (itemArray[index] == null)
-            {
+            {       
                 itemArray[index] = itemData;
+                onAction.Invoke(selectItemIndex);
                 return true;
             }
         }
@@ -53,7 +58,7 @@ public class Inventory : MonoBehaviour
             return;
         }   
         Vector3 dropPos = transform.position + transform.forward * 2;
-        Instantiate(itemArray[slotIndex].itemPrefab, dropPos, Quaternion.identity);
+        Instantiate(itemArray[slotIndex].collectiblePrefab, dropPos, transform.rotation);
         itemArray[slotIndex] = null;
     }
 }
