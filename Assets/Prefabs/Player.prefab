@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1909067925137291107}
   - component: {fileID: 1909067925137291104}
   - component: {fileID: 1909067925137291105}
-  - component: {fileID: 1909067925137291106}
   m_Layer: 0
   m_Name: Direction Cube
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1909067925137291106
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1909067925137291108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1909067925291176931
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +174,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909067925291176931}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d712f935dc8fb6149889990453442ff9, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -209,6 +195,7 @@ GameObject:
   - component: {fileID: 1909067926030156737}
   - component: {fileID: 1909067926030156738}
   - component: {fileID: 1624653577}
+  - component: {fileID: 1624653580}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -231,6 +218,7 @@ Transform:
   - {fileID: 1909067925291176930}
   - {fileID: 1909067925137291107}
   - {fileID: 8544012336904628256}
+  - {fileID: 5542203549570753369}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -326,6 +314,50 @@ MonoBehaviour:
   onAction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1624653580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909067926030156743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df726ba6ac2b9c429140d554a5fae66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handPos: {fileID: 5542203549570753370}
+--- !u!1 &5542203549570753370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5542203549570753369}
+  m_Layer: 0
+  m_Name: HandPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5542203549570753369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542203549570753370}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1909067926030156742}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8544012336904628257
 GameObject:
   m_ObjectHideFlags: 0

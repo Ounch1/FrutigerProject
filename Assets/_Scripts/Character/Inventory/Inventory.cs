@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     private int selectItemIndex = -1;
     public int GetSelectedItemIndex() => selectItemIndex;
     public UnityEvent<int> onAction;
-    
+
     private void Update()
     {
         for (int i = 0; i <= 9; i++)
@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
         {
             int index = i % itemArray.Length; // Use modulo to go back to 0 when i is equal to itemArray.Length
             if (itemArray[index] == null)
-            {       
+            {
                 itemArray[index] = itemData;
                 onAction.Invoke(selectItemIndex);
                 return true;
@@ -56,9 +56,52 @@ public class Inventory : MonoBehaviour
         if (itemArray[slotIndex] == null)
         {
             return;
-        }   
-        Vector3 dropPos = transform.position + transform.forward * 2;
+        }
+        Vector3 dropPos = CalculateDropPosition();
+        AdjustToAvoidPlayer(ref dropPos, 1.4f);
+
         Instantiate(itemArray[slotIndex].collectiblePrefab, dropPos, transform.rotation);
         itemArray[slotIndex] = null;
     }
+
+    /// <summary>
+    /// Calculates the drop position for an item based on the player's orientation and environment.
+    /// </summary>
+    /// <returns>The calculated drop position as a Vector3.</returns>
+    private Vector3 CalculateDropPosition()
+    {
+        float maxDistance = 1.6f;
+        Vector3 dropPos = transform.position + transform.forward * maxDistance;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance))
+        {
+            dropPos = hit.point - transform.forward * Mathf.Min(0.5f, Vector3.Distance(hit.point, transform.position));
+        }
+
+        return dropPos;
+    }
+
+    /// <summary>
+    /// Adjusts the drop position to ensure a minimum distance from the player.
+    /// </summary>
+    /// <param name="dropPos">The current drop position to be adjusted.</param>
+    /// <param name="minDistanceToPlayer">The minimum distance to be maintained between the dropped item and the player.</param>
+    private void AdjustToAvoidPlayer(ref Vector3 dropPos, float minDistanceToPlayer)
+    {
+        // Calculate the distance between the drop position and the player
+        float distanceToPlayer = Vector3.Distance(dropPos, transform.position);
+
+        if (distanceToPlayer < minDistanceToPlayer)
+        {
+            // Determine the offset direction based on the player's rotation
+            Vector3 playerForward = transform.forward;
+            Vector3 playerRight = Vector3.Cross(playerForward, Vector3.up);
+            Vector3 offsetDirection = Vector3.Dot(dropPos - transform.position, playerRight) > 0 ? playerRight : -playerRight;
+
+            // Adjust the drop position by moving it along the offset direction
+            dropPos += offsetDirection * (minDistanceToPlayer - distanceToPlayer);
+        }
+    }
+
 }
