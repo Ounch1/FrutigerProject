@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class FPVCamera : TargetCamera
+public class FPVCamera : MonoBehaviour
 {
+    public Transform target;
+    public Vector3 offset;
+
     [Header("Controls")]
     public float sensitivityY = 200f;
     public float sensitivityX = 200f;
@@ -14,6 +17,9 @@ public class FPVCamera : TargetCamera
 
     private void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+
         UpdatePosition(Time.deltaTime);
         if (Input.GetAxis("Mouse ScrollWheel") < -Mathf.Epsilon)
         {
@@ -21,9 +27,8 @@ public class FPVCamera : TargetCamera
         }       
     }
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
         target.eulerAngles = Vector3.up * transform.eulerAngles.y;
         _sphereDegrees.x = target.eulerAngles.y;
     }

@@ -4933,7 +4933,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1909067924430699719}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 861f9673b8d562f43a9b813fc0474edf, type: 3}
   m_Name: 
@@ -4944,7 +4944,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1909067924430699719}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 267bffea49593a149ad6284678148c7b, type: 3}
   m_Name: 
@@ -6929,10 +6929,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1423906943}
     m_Modifications:
+    - target: {fileID: 1624653577, guid: 614a2386c29291f45a61a6fd0982257a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1909067926030156737, guid: 614a2386c29291f45a61a6fd0982257a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1909067926030156737, guid: 614a2386c29291f45a61a6fd0982257a, type: 3}
       propertyPath: spectator
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 1909067926030156738, guid: 614a2386c29291f45a61a6fd0982257a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1909067926030156742, guid: 614a2386c29291f45a61a6fd0982257a, type: 3}
       propertyPath: m_RootOrder
       value: 1

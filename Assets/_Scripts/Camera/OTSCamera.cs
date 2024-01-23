@@ -1,8 +1,11 @@
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class OTSCamera : TargetCamera
+public class OTSCamera : MonoBehaviour
 {
+    public Transform target;
+    public Vector3 offset;
+
     [Header("Follow")]
     public float speed = 200f;
     public bool clampWithWalls = true;
@@ -30,9 +33,11 @@ public class OTSCamera : TargetCamera
         UpdatePosition(Time.deltaTime);
     }
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
         _zoom = minDistance;
     }
 
@@ -40,7 +45,12 @@ public class OTSCamera : TargetCamera
     {
         if (Input.GetMouseButton(1) || ServiceLocator.GetService<PlayerInput>().isShift)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             _sphereRadians += new Vector2(Input.GetAxis("Mouse X") * -sensitivityX, Input.GetAxis("Mouse Y") * -sensitivityY) * deltaTime * Mathf.Deg2Rad; // Calculate camera movement
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         _zoom += -Input.GetAxis("Mouse ScrollWheel") * deltaTime * zoomSpeed;
