@@ -40,23 +40,8 @@ public abstract class CharacterMovement : MonoBehaviour
 
     protected virtual void UpdateMovement(float deltaTime)
     {
-        applyGravity();
-        applyFall();
         applyJump();
         applyMovement();
-
-        void applyGravity()
-        {
-            rb.AddForce(Physics.gravity * rb.mass);
-        }
-
-        void applyFall()
-        {
-            if (isGrounded && rb.velocity.y < 0)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, -2f, rb.velocity.z);
-            }
-        }
 
         void applyJump()
         {
@@ -79,7 +64,7 @@ public abstract class CharacterMovement : MonoBehaviour
 
     protected virtual void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpHeight, ForceMode.VelocityChange);
     }
 
     private bool CheckGround()
