@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Clickable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnMouseDown()
     {
-        
+        Debug.Log("Clicked");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseEnter()
     {
-        
+        CursorManager.SetCursorState(CursorManager.CursorState.Hover);
+    }
+
+    private void OnMouseExit()
+    {
+        CursorManager.SetCursorState(CursorManager.CursorState.Default);
     }
 }
